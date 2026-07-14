@@ -10,3 +10,5 @@ createRoot(document.getElementById('root')).render(
 )
 
 // StellarFraction frontend entry - bootstraps React application rendering
+
+// Import root stylesheets index.css containing dark theme glassmorphism
