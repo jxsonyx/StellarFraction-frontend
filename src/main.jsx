@@ -24,3 +24,5 @@ createRoot(document.getElementById('root')).render(
 // Setup Hana wallet connection API handlers for Stellar network authentication
 
 // Load wallet credentials and save connection addresses in state manager
+
+// Setup localStorage caching to recover active user address on reload
