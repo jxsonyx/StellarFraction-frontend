@@ -68,3 +68,5 @@ createRoot(document.getElementById('root')).render(
 // Setup snapshot testing parameters to capture property card designs
 
 // Configure GitHub actions yaml to trigger npm build checks on push
+
+// Validate TypeScript interfaces structure across models configurations
