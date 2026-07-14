@@ -22,6 +22,15 @@ describe('usePersistentState', () => {
     expect(result.current[0]).toEqual([2, 3]);
   });
 
+  it('falls back to the default when stored JSON is malformed', () => {
+    window.localStorage.setItem('preference', '{not-json');
+
+    const { result } = renderHook(() => usePersistentState('preference', [1]));
+
+    expect(result.current[0]).toEqual([1]);
+    expect(window.localStorage.getItem('preference')).toBe('[1]');
+  });
+
   it('persists state updates', () => {
     const { result } = renderHook(() => usePersistentState('preference', []));
 
