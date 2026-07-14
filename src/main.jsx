@@ -16,3 +16,5 @@ createRoot(document.getElementById('root')).render(
 // Render App root component inside document root element container
 
 // Import React StrictMode wrapper to identify double render lifecycle issues
+
+// Configure Freighter browser wallet hooks to detect active account key
