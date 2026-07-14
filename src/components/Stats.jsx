@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Home, Users, DollarSign, Percent } from 'lucide-react';
+import { formatCurrency, formatPercent } from '../utils/format';
 
 export default function Stats({ totalDividends, totalStaked }) {
-  const statItems = [
+  const statItems = useMemo(() => [
     {
       title: 'Properties Tokenized',
       value: '3 Commercial',
@@ -17,17 +18,17 @@ export default function Stats({ totalDividends, totalStaked }) {
     },
     {
       title: 'Dividends Distributed',
-      value: `$${totalDividends.toLocaleString()} USDC`,
+      value: `${formatCurrency(totalDividends)} USDC`,
       icon: <DollarSign size={20} color="var(--primary-purple)" />,
       description: 'Proportional payout total',
     },
     {
       title: 'Average Yield',
-      value: '8.83% APY',
+      value: formatPercent(8.83),
       icon: <Percent size={20} color="var(--accent-green)" />,
       description: 'Passive rental income',
     },
-  ];
+  ], [totalDividends, totalStaked]);
 
   return (
     <div style={{

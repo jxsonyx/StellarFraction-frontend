@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Terminal, Shield } from 'lucide-react';
+import { calculatePendingReward } from '../utils/math';
 
 export default function SorobanPlayground({
   stakers,
@@ -25,11 +26,7 @@ export default function SorobanPlayground({
   };
 
   // Helper: calculate pending rewards for a staker
-  const calculatePending = (staker) => {
-    if (staker.shares === 0) return 0;
-    const accumulated = (staker.shares * accRewardPerShare) / SCALE_FACTOR;
-    return accumulated - staker.debt;
-  };
+  const calculatePending = (staker) => calculatePendingReward(staker.shares, accRewardPerShare, staker.debt, SCALE_FACTOR);
 
   // Deposit/Stake function
   const handleStake = (stakerId, amount) => {

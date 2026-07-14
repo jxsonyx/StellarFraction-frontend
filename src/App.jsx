@@ -11,6 +11,7 @@ import { DEFAULT_WATCHLIST, WATCHLIST_STORAGE_KEY } from './constants/watchlist'
 import { usePersistentState } from './hooks/usePersistentState';
 import { pruneUnavailableWatchlistIds, toggleWatchlistId } from './utils/properties';
 import { Cpu, Terminal, BookOpen, GitFork, ArrowUpRight } from 'lucide-react';
+import { calculatePendingReward } from './utils/math';
 
 export default function App() {
   const [wallet, setWallet] = useState({
@@ -110,11 +111,7 @@ export default function App() {
       return prevStakers.map(s => {
         if (s.id === 3) { // 3 represents "You"
           // Calculate pending reward up to this point
-          let pending = 0;
-          if (s.shares > 0) {
-            const accumulated = (s.shares * accRewardPerShare) / SCALE_FACTOR;
-            pending = accumulated - s.debt;
-          }
+          const pending = calculatePendingReward(s.shares, accRewardPerShare, s.debt, SCALE_FACTOR);
           
           const newShares = s.shares + amount;
           const newUSDCBalance = s.usdcBalance + pending;
@@ -158,11 +155,7 @@ export default function App() {
     setStakers(prevStakers => {
       return prevStakers.map(s => {
         if (s.id === 3) {
-          let pending = 0;
-          if (s.shares > 0) {
-            const accumulated = (s.shares * accRewardPerShare) / SCALE_FACTOR;
-            pending = accumulated - s.debt;
-          }
+          const pending = calculatePendingReward(s.shares, accRewardPerShare, s.debt, SCALE_FACTOR);
 
           const newShares = Math.max(0, s.shares - amount);
           const newUSDCBalance = s.usdcBalance + pending;

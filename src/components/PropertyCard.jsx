@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { MapPin, Building, ArrowRight, Percent, Heart, Trash2 } from 'lucide-react';
+import { formatCurrency, formatPercent } from '../utils/format';
 
 export default function PropertyCard({
   properties,
@@ -11,9 +12,9 @@ export default function PropertyCard({
   onWithdrawShares,
 }) {
   const [catalogFilter, setCatalogFilter] = useState('all');
-  const visibleProperties = catalogFilter === 'saved'
+  const visibleProperties = useMemo(() => catalogFilter === 'saved'
     ? properties.filter(property => watchlistIds.includes(property.id))
-    : properties;
+    : properties, [catalogFilter, properties, watchlistIds]);
   return (
     <div style={{ marginBottom: '48px' }}>
       <div className="property-catalog-heading">
@@ -89,7 +90,7 @@ function PropertyItem({ prop, wallet, isSaved, onToggleWatchlist, onInvest, onWi
   const [isUnstaking, setIsUnstaking] = useState(false);
 
   const annualYield = (investAmount * (prop.apy / 100)).toFixed(2);
-  const monthlyYield = (annualYield / 12).toFixed(2);
+  const monthlyYield = (Number(annualYield) / 12).toFixed(2);
 
   const handleInvest = () => {
     setIsStaking(true);
@@ -165,7 +166,7 @@ function PropertyItem({ prop, wallet, isSaved, onToggleWatchlist, onInvest, onWi
           </div>
           <div style={{ textAlign: 'right' }}>
             <span style={{ fontSize: '1.1rem', color: 'var(--accent-green)', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '2px' }}>
-              <Percent size={14} /> {prop.apy}% APY
+              <Percent size={14} /> {formatPercent(prop.apy)} APY
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Projected Yield</span>
           </div>
@@ -191,7 +192,7 @@ function PropertyItem({ prop, wallet, isSaved, onToggleWatchlist, onInvest, onWi
             <span style={{ color: 'var(--text-secondary)' }}>Asset Code:</span> <code style={{ color: '#fff' }}>{prop.tokenCode}</code>
           </div>
           <div>
-            <span style={{ color: 'var(--text-secondary)' }}>Price:</span> <span style={{ color: '#fff' }}>$1.00 USDC</span>
+            <span style={{ color: 'var(--text-secondary)' }}>Price:</span> <span style={{ color: '#fff' }}>{formatCurrency(1)}</span>
           </div>
           <div style={{ gridColumn: 'span 2' }}>
             <span style={{ color: 'var(--text-secondary)' }}>Issuer Key:</span> <code style={{ color: '#818cf8', fontSize: '0.7rem' }}>{prop.issuer}</code>
@@ -202,7 +203,7 @@ function PropertyItem({ prop, wallet, isSaved, onToggleWatchlist, onInvest, onWi
         <div style={{ background: 'rgba(255,255,255,0.02)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.04)', marginBottom: '20px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
             <span style={{ color: 'var(--text-secondary)' }}>Simulate Investment</span>
-            <span style={{ color: '#fff', fontWeight: 600 }}>${investAmount.toLocaleString()} USDC</span>
+            <span style={{ color: '#fff', fontWeight: 600 }}>{formatCurrency(investAmount)} USDC</span>
           </div>
           
           <input 

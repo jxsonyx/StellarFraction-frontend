@@ -18,6 +18,13 @@ export default function StellarWorkflow() {
     setKeys({ issuerPub: '', issuerSec: '', distPub: '', distSec: '' });
   };
 
+  const createMockKeys = () => ({
+    issuerPub: 'GBISUERPROPERTYXYZ1234567890ISSUEKEYPART1TOWER',
+    issuerSec: 'SBSECRETISSUERKEYDONTEXPOSETHISKEYINSANDBOXMODE',
+    distPub: 'GBCDISTRIBUTIONWALLETXYZ1234567890DISTRIBUTOR',
+    distSec: 'SBSECRETDISTRIBUTORKEYDONTEXPOSETHISINPRODUCTION'
+  });
+
   const runWorkflow = async () => {
     setIsRunning(true);
     clearLogs();
@@ -41,12 +48,7 @@ export default function StellarWorkflow() {
       addLog(`✅ Distribution Account generated: ${generatedKeys.distPub.substring(0, 12)}...${generatedKeys.distPub.substring(44)}`, 'success');
     } catch {
       addLog('❌ Failed generating keypairs, falling back to secure simulated mock keys.', 'error');
-      const generatedKeys = {
-        issuerPub: 'GBISUERPROPERTYXYZ1234567890ISSUEKEYPART1TOWER',
-        issuerSec: 'SBSECRETISSUERKEYDONTEXPOSETHISKEYINSANDBOXMODE',
-        distPub: 'GBCDISTRIBUTIONWALLETXYZ1234567890DISTRIBUTOR',
-        distSec: 'SBSECRETDISTRIBUTORKEYDONTEXPOSETHISINPRODUCTION'
-      };
+      const generatedKeys = createMockKeys();
       setKeys(generatedKeys);
     }
 

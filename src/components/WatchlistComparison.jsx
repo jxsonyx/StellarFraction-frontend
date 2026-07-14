@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { GitCompareArrows, MapPin, Trophy } from 'lucide-react';
-import { formatUSD } from '../utils/format';
+import { formatPercent, formatUSD } from '../utils/format';
 import { buildWatchlistComparison } from '../utils/properties';
 
 export default function WatchlistComparison({
@@ -61,7 +61,7 @@ export default function WatchlistComparison({
               <div><dt>Property value</dt><dd>{formatUSD(property.value)}</dd></div>
               <div><dt>Monthly income</dt><dd>{formatUSD(property.monthlyIncome)}</dd></div>
               <div><dt>Annual income</dt><dd>{formatUSD(property.annualIncome)}</dd></div>
-              <div><dt>Est. ownership</dt><dd>{property.ownershipPercent.toFixed(3)}%</dd></div>
+              <div><dt>Est. ownership</dt><dd>{formatPercent(property.ownershipPercent, 3)}</dd></div>
             </dl>
           </article>
         ))}

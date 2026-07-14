@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Calculator } from 'lucide-react';
 import { findPropertyById } from '../utils/properties';
+import { calculateInvestmentProjection } from '../utils/math';
 
 export default function InvestmentCalculator({ properties }) {
   const [selectedPropId, setSelectedPropId] = useState(properties[0]?.id || 1);
@@ -9,62 +10,34 @@ export default function InvestmentCalculator({ properties }) {
   const [reinvest, setReinvest] = useState(true);
 
   const selectedProp = findPropertyById(properties, selectedPropId) || properties[0];
+  const apy = selectedProp?.apy ?? 0;
 
-  const apy = selectedProp.apy;
-  const appreciationRate = 0.045; // 4.5% annual property appreciation
+  const projection = useMemo(() => calculateInvestmentProjection({
+    principal,
+    apy,
+    years,
+    appreciationRate: 0.045,
+    reinvest,
+  }), [apy, principal, reinvest, years]);
 
-  // Calculation logic
-  let totalYield = 0;
-  let currentPrincipal = principal;
-  let yieldsArray = [];
-  let appreciationArray = [];
-
-  for (let year = 1; year <= years; year++) {
-    // Rental Yield for this year
-    const yearlyYield = currentPrincipal * (apy / 100);
-    totalYield += yearlyYield;
-    
-    // If reinvesting, add yield to principal for next year
-    if (reinvest) {
-      currentPrincipal += yearlyYield;
-    }
-    
-    // Asset appreciation
-    const appreciatedVal = principal * Math.pow(1 + appreciationRate, year);
-    const appreciationProfit = appreciatedVal - principal;
-
-    if (year === 1 || year === 3 || year === 5 || year === 10 || year === 20 || year === 30 || year === years) {
-      yieldsArray.push({ year, value: Math.round(totalYield) });
-      appreciationArray.push({ year, value: Math.round(appreciationProfit) });
-    }
-  }
-
-  // Final values
-  const finalAppreciationProfit = principal * Math.pow(1 + appreciationRate, years) - principal;
-  const finalTotalValue = principal + totalYield + finalAppreciationProfit;
-  const totalGain = finalTotalValue - principal;
-  const roiPercentage = ((totalGain / principal) * 100).toFixed(0);
-
-  // Generate steps for rendering CSS chart
   const chartIntervals = [1, Math.max(2, Math.floor(years / 2)), years];
-  const chartData = chartIntervals.map(yr => {
-    let tYield = 0;
-    let currP = principal;
-    for (let i = 1; i <= yr; i++) {
-      const yYield = currP * (apy / 100);
-      tYield += yYield;
-      if (reinvest) currP += yYield;
-    }
-    const appProfit = principal * Math.pow(1 + appreciationRate, yr) - principal;
-    return {
-      year: yr,
-      yieldVal: Math.round(tYield),
-      apprecVal: Math.round(appProfit),
-      total: Math.round(principal + tYield + appProfit)
-    };
-  });
+  const chartData = useMemo(() => chartIntervals.map((year) => {
+    const entry = projection.entries.find((item) => item.year === year);
 
-  const maxChartValue = Math.max(...chartData.map(d => d.total));
+    if (!entry) {
+      return null;
+    }
+
+    return {
+      year,
+      yieldVal: Math.round(entry.totalYield),
+      apprecVal: Math.round(entry.appreciationProfit),
+      total: Math.round(entry.totalValue),
+    };
+  }).filter(Boolean), [chartIntervals, projection.entries]);
+
+  const maxChartValue = Math.max(...chartData.map(d => d.total), 1);
+  const roiPercentage = ((projection.totalGain / Math.max(principal, 1)) * 100).toFixed(0);
 
   return (
     <div className="glass-card" style={{ marginBottom: '48px' }} id="calculator">
@@ -208,19 +181,19 @@ export default function InvestmentCalculator({ properties }) {
             <div>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Projected Total Value</span>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--primary-cyan)' }}>
-                ${Math.round(finalTotalValue).toLocaleString()}
+                ${Math.round(projection.finalTotalValue).toLocaleString()}
               </h3>
             </div>
             <div>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Rental Dividends (USDC)</span>
               <h3 style={{ fontSize: '1.2rem', color: 'var(--accent-green)', fontWeight: 700 }}>
-                +${Math.round(totalYield).toLocaleString()}
+                +${Math.round(projection.entries.at(-1)?.totalYield ?? 0).toLocaleString()}
               </h3>
             </div>
             <div>
               <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Property Appreciation</span>
               <h3 style={{ fontSize: '1.2rem', color: 'var(--primary-purple)', fontWeight: 700 }}>
-                +${Math.round(finalAppreciationProfit).toLocaleString()}
+                +${Math.round(projection.finalAppreciationProfit).toLocaleString()}
               </h3>
             </div>
           </div>
@@ -240,7 +213,7 @@ export default function InvestmentCalculator({ properties }) {
           }}>
             <div>
               <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.8 }}>Estimated Net Profit</span>
-              <p style={{ fontSize: '1.4rem', fontWeight: 800 }}>+${Math.round(totalGain).toLocaleString()} USDC</p>
+              <p style={{ fontSize: '1.4rem', fontWeight: 800 }}>+${Math.round(projection.totalGain).toLocaleString()} USDC</p>
             </div>
             <div style={{ textAlign: 'right' }}>
               <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.8 }}>ROI</span>
