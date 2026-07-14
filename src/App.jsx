@@ -5,7 +5,7 @@ import PropertyCard from './components/PropertyCard';
 import InvestmentCalculator from './components/InvestmentCalculator';
 import StellarWorkflow from './components/StellarWorkflow';
 import SorobanPlayground from './components/SorobanPlayground';
-import { Cpu, Terminal, BookOpen, Users, GitFork, ArrowUpRight } from 'lucide-react';
+import { Cpu, Terminal, BookOpen, GitFork, ArrowUpRight } from 'lucide-react';
 
 const INITIAL_PROPERTIES = [
   {

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import { Cpu, Terminal, ArrowRight, Shield, Award, HelpCircle, FileText, CheckCircle } from 'lucide-react';
+import { Terminal, Shield } from 'lucide-react';
 
-export default function SorobanPlayground({ 
-  stakers, 
-  setStakers, 
-  accRewardPerShare, 
-  setAccRewardPerShare, 
-  totalShares, 
-  setTotalShares, 
-  contractUSDC, 
-  setContractUSDC, 
-  totalDividends, 
-  setTotalDividends 
+export default function SorobanPlayground({
+  stakers,
+  setStakers,
+  accRewardPerShare,
+  setAccRewardPerShare,
+  totalShares,
+  setTotalShares,
+  contractUSDC,
+  setContractUSDC,
+  setTotalDividends
 }) {
   const [rentAmount, setRentAmount] = useState(1200);
   const [activeTab, setActiveTab] = useState('simulation'); // 'simulation', 'rust', 'complexity'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, DollarSign, TrendingUp, HelpCircle, ArrowRight } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 
 export default function InvestmentCalculator({ properties }) {
   const [selectedPropId, setSelectedPropId] = useState(properties[0]?.id || 1);

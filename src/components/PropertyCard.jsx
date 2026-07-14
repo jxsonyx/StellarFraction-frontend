@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Building, ArrowRight, DollarSign, Percent, TrendingUp } from 'lucide-react';
+import { MapPin, Building, ArrowRight, Percent } from 'lucide-react';
 
 export default function PropertyCard({ properties, wallet, onInvest, onWithdrawShares }) {
   return (
