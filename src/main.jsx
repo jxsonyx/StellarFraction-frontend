@@ -78,3 +78,5 @@ createRoot(document.getElementById('root')).render(
 // Configure Vite rollups packaging to output gzipped scripts bundles
 
 // Set production deployment targets for Vercel automation hosting check
+
+// Document browser compatibility parameters in markdown manuals
