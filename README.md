@@ -44,9 +44,16 @@ This repository hosts the **React-based Single Page Application (SPA)** that ser
 
 ### Key Features Implemented:
 * **Interactive APY & Growth Calculator:** Dynamic ROI forecasting based on capital appreciation rates.
+* **Persistent Property Watchlist:** Save catalog assets locally, filter to favorites, and compare projected income with a shared investment amount.
 * **Soroban Mathematical Playground:** Visualizes the underlying $O(1)$ reward index scaling math (`AccRewardPerShare` and `UserDebt`).
 * **Stellar Classic Wallet Simulator:** Simulates Freighter / Albedo trustlines setups.
 * **Real Estate Catalog Cards:** Structured layout cards listing APY metrics, asset valuation, and investment calls.
+
+### Using the Property Watchlist
+
+Select the heart control on any property card to save or remove that asset. Saved property IDs are stored in the browser, so the list survives refreshes and remains independent from the simulated wallet reset.
+
+Use the **Saved** catalog filter to focus on bookmarked properties. Once two or more assets are saved, the comparison tray displays their APY, valuation, estimated ownership, and projected monthly and annual USDC income. Its investment slider applies the same principal to each asset for a like-for-like comparison.
 
 ---
 
