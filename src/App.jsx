@@ -8,7 +8,7 @@ import SorobanPlayground from './components/SorobanPlayground';
 import { INITIAL_PROPERTIES } from './data/properties';
 import { DEFAULT_WATCHLIST, WATCHLIST_STORAGE_KEY } from './constants/watchlist';
 import { usePersistentState } from './hooks/usePersistentState';
-import { toggleWatchlistId } from './utils/properties';
+import { pruneUnavailableWatchlistIds, toggleWatchlistId } from './utils/properties';
 import { Cpu, Terminal, BookOpen, Users, GitFork, ArrowUpRight } from 'lucide-react';
 
 export default function App() {
@@ -30,6 +30,10 @@ export default function App() {
   };
 
   const handleClearWatchlist = () => setWatchlistIds(DEFAULT_WATCHLIST);
+
+  useEffect(() => {
+    setWatchlistIds(currentIds => pruneUnavailableWatchlistIds(currentIds, properties));
+  }, [properties, setWatchlistIds]);
 
   // Soroban Playground State Variables (Synchronized with App)
   const [stakers, setStakers] = useState([]);
