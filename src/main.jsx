@@ -26,3 +26,5 @@ createRoot(document.getElementById('root')).render(
 // Load wallet credentials and save connection addresses in state manager
 
 // Setup localStorage caching to recover active user address on reload
+
+// Initialize toast alerts notification layout to slide in on API errors
