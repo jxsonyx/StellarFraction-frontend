@@ -42,3 +42,5 @@ createRoot(document.getElementById('root')).render(
 // Include title, keywords, and meta tags descriptions for search engine SEO
 
 // Setup compound interest timeline charts representing growth estimates
+
+// Build stakers list simulation tracking deposits, debts, and earnings
