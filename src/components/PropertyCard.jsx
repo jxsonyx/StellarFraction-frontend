@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Building, ArrowRight, DollarSign, Percent, TrendingUp } from 'lucide-react';
+import { MapPin, Building, ArrowRight, DollarSign, Percent, TrendingUp, Heart } from 'lucide-react';
 
 export default function PropertyCard({
   properties,
@@ -10,8 +10,6 @@ export default function PropertyCard({
   onInvest,
   onWithdrawShares,
 }) {
-  void watchlistIds;
-  void onToggleWatchlist;
   void onClearWatchlist;
   return (
     <div style={{ marginBottom: '48px' }}>
@@ -33,6 +31,8 @@ export default function PropertyCard({
               key={prop.id} 
               prop={prop} 
               wallet={wallet}
+              isSaved={watchlistIds.includes(prop.id)}
+              onToggleWatchlist={onToggleWatchlist}
               onInvest={onInvest}
               onWithdrawShares={onWithdrawShares}
             />
@@ -43,7 +43,7 @@ export default function PropertyCard({
   );
 }
 
-function PropertyItem({ prop, wallet, onInvest, onWithdrawShares }) {
+function PropertyItem({ prop, wallet, isSaved, onToggleWatchlist, onInvest, onWithdrawShares }) {
   const [investAmount, setInvestAmount] = useState(100);
   const [isStaking, setIsStaking] = useState(false);
   const [isUnstaking, setIsUnstaking] = useState(false);
@@ -89,6 +89,15 @@ function PropertyItem({ prop, wallet, onInvest, onWithdrawShares }) {
             <Building size={48} color="rgba(255,255,255,0.2)" />
           </div>
         )}
+        <button
+          type="button"
+          className="watchlist-button"
+          aria-label={`${isSaved ? 'Remove' : 'Save'} ${prop.name} ${isSaved ? 'from' : 'to'} watchlist`}
+          aria-pressed={isSaved}
+          onClick={() => onToggleWatchlist(prop.id)}
+        >
+          <Heart size={18} fill={isSaved ? 'currentColor' : 'none'} aria-hidden="true" />
+        </button>
         <div style={{ 
           position: 'absolute', 
           top: '12px', 
