@@ -39,7 +39,7 @@ export default function StellarWorkflow() {
       setKeys(generatedKeys);
       addLog(`✅ Issuer Account generated: ${generatedKeys.issuerPub.substring(0, 12)}...${generatedKeys.issuerPub.substring(44)}`, 'success');
       addLog(`✅ Distribution Account generated: ${generatedKeys.distPub.substring(0, 12)}...${generatedKeys.distPub.substring(44)}`, 'success');
-    } catch (_err) {
+    } catch {
       addLog('❌ Failed generating keypairs, falling back to secure simulated mock keys.', 'error');
       const generatedKeys = {
         issuerPub: 'GBISUERPROPERTYXYZ1234567890ISSUEKEYPART1TOWER',
@@ -189,7 +189,7 @@ stellar xdr build payment \\
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <Cpu size={18} color="var(--primary-purple)" />
+          <Terminal size={18} color="var(--primary-purple)" />
         </div>
         <h2 style={{ fontSize: '1.5rem', margin: 0 }}>Stellar SDK Asset & Trustline Workflow</h2>
       </div>
