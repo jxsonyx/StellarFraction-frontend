@@ -22,3 +22,5 @@ createRoot(document.getElementById('root')).render(
 // Setup Albedo browser adapter fallback options for keyless users
 
 // Setup Hana wallet connection API handlers for Stellar network authentication
+
+// Load wallet credentials and save connection addresses in state manager
