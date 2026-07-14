@@ -1,43 +1,89 @@
 # StellarFraction Frontend Dashboard
 
-This repository contains the interactive React + Vite frontend dashboard for the **StellarFraction** micro-investment platform.
-
-StellarFraction enables retail investors to purchase fractional shares of commercial real estate starting at $1, establishing Stellar Classic trustlines and earning USDC yield via Soroban smart contracts.
+Part of the **StellarFraction** ecosystem: A premium, decentralized micro-investment platform for fractional commercial real estate built on the Stellar network.
 
 ---
 
-## Key Modules
-- **Interactive ROI Calculator:** Computes compound yield projections and appreciation rates.
-- **Stellar Classic Workflows Simulator:** Demonstrates account funding, asset creation, and trustline registration.
-- **Soroban Playground:** Visualizes the math behind our smart contract staking rewards program.
-- **Stats Dashboard:** Live views of total dividends, properties listed, and staker status.
+## 🌐 StellarFraction Ecosystem Architecture
+
+StellarFraction is built using a hybrid, three-tier architecture combining classic Stellar assets, Soroban smart contracts, and a web dashboard backed by a Node.js management API.
+
+```
+       +-------------------------------------------------+
+       |             Client Browser (React UI)           |
+       +-------+--------------------+----------------+---+
+               |                    |                |
+   (Wallet Connection)       (API Requests)    (SDK Triggers)
+               |                    |                |
+               v                    v                v
+       +-------+-------+     +------+------+   +-----+------+
+       |   Freighter   |     |   Node.js   |   |   Stellar  |
+       |  / Albedo     |     |   Backend   |   |  Horizon/  |
+       |  Wallet       |     |   API       |   |  Soroban   |
+       +-------+-------+     +------+------+   +-----+------+
+               |                    |                |
+         (Signs Tx)            (DB Queries)     (Dividend Dist)
+               |                    |                |
+               v                    +--------------> |
+   +-----------+-------------------------------------+-----------+
+   |                       Stellar Network                       |
+   |   - Property Deed Tokens (Classic Asset HORZ/OAKT/OMNI)     |
+   |   - USDC Rental Dividend Distribution (Soroban Contract)    |
+   +-------------------------------------------------------------+
+```
 
 ---
 
-## Getting Started
+## 💻 Role of this Repository
+
+This repository hosts the **React-based Single Page Application (SPA)** that serves as the investor dashboard. 
+
+### Why is this frontend configured with Node.js?
+* **Development Only:** Node.js is **strictly a development-time tool** here. We use `npm` (Node Package Manager) to install modules (React, Stellar SDK, Chart.js) and run Vite's high-speed hot-reloading development server.
+* **Production Static Output:** When compiled via `npm run build`, the Node.js layers are completely discarded. The output is pure, optimized, static HTML, CSS, and client-side JavaScript that runs directly inside the client's browser and can be hosted anywhere (Vercel, Netlify, Cloudflare Pages, S3).
+
+### Key Features Implemented:
+* **Interactive APY & Growth Calculator:** Dynamic ROI forecasting based on capital appreciation rates.
+* **Soroban Mathematical Playground:** Visualizes the underlying $O(1)$ reward index scaling math (`AccRewardPerShare` and `UserDebt`).
+* **Stellar Classic Wallet Simulator:** Simulates Freighter / Albedo trustlines setups.
+* **Real Estate Catalog Cards:** Structured layout cards listing APY metrics, asset valuation, and investment calls.
+
+---
+
+## 🛠️ Local Development Setup
 
 ### Prerequisites
-- **Node.js** (v18+)
-- **npm** (v9+)
+* **Node.js** (v18.0.0 or higher)
+* **npm** (v9.0.0 or higher)
 
-### Installation
-1. Install node dependencies:
+### Installation Steps
+
+1. **Clone and navigate to the directory:**
+   ```bash
+   cd StellarFraction-frontend
+   ```
+
+2. **Install all dependencies:**
    ```bash
    npm install
    ```
 
-2. Run local development server:
+3. **Start the local development server:**
    ```bash
    npm run dev
    ```
+   *The application will run locally at `http://localhost:5173/`.*
 
-3. Build for production compilation:
+4. **Compile production-ready static assets:**
    ```bash
    npm run build
    ```
+   *Static assets will compile into the `/dist` directory.*
 
-## Contributing
-Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for details on code style, formatting, ESLint rules, and branch guidelines.
+---
 
-## License
-MIT License - see the [LICENSE](./LICENSE) file for details.
+## 🤝 Contributing & Pull Requests
+For styling guidelines, branching patterns, and committing protocols, please review the [CONTRIBUTING.md](./CONTRIBUTING.md) guide. Use the provided Pull Request templates when submitting code updates.
+
+## 📄 License
+This project is open-source under the terms of the MIT License. See [LICENSE](./LICENSE) for details.
