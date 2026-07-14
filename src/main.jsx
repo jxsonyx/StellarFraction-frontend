@@ -20,3 +20,5 @@ createRoot(document.getElementById('root')).render(
 // Configure Freighter browser wallet hooks to detect active account key
 
 // Setup Albedo browser adapter fallback options for keyless users
+
+// Setup Hana wallet connection API handlers for Stellar network authentication
