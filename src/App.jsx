@@ -29,6 +29,8 @@ export default function App() {
     setWatchlistIds(currentIds => toggleWatchlistId(currentIds, propertyId));
   };
 
+  const handleClearWatchlist = () => setWatchlistIds(DEFAULT_WATCHLIST);
+
   // Soroban Playground State Variables (Synchronized with App)
   const [stakers, setStakers] = useState([]);
   const [accRewardPerShare, setAccRewardPerShare] = useState(0); // scaled by 1e12
@@ -218,6 +220,7 @@ export default function App() {
           wallet={wallet}
           watchlistIds={watchlistIds}
           onToggleWatchlist={handleToggleWatchlist}
+          onClearWatchlist={handleClearWatchlist}
           onInvest={handleInvest}
           onWithdrawShares={handleWithdrawShares}
         />
