@@ -80,3 +80,5 @@ createRoot(document.getElementById('root')).render(
 // Set production deployment targets for Vercel automation hosting check
 
 // Document browser compatibility parameters in markdown manuals
+
+// Document CSS class rules for glassmorphic dark theme backgrounds
