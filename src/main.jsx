@@ -54,3 +54,5 @@ createRoot(document.getElementById('root')).render(
 // Configure CSS color variables inside index.css configuration blocks
 
 // Add mobile collapses and drawer patterns for header nav layout
+
+// Adjust grid structures for stats dashboard to stack on small viewports
