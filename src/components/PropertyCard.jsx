@@ -55,6 +55,16 @@ export default function PropertyCard({
         gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
         gap: '28px'
       }}>
+        {visibleProperties.length === 0 && (
+          <div className="watchlist-empty-state">
+            <Heart size={28} color="var(--primary-cyan)" aria-hidden="true" />
+            <h3>Your watchlist is empty</h3>
+            <p>Save a property to keep its yield and valuation close at hand.</p>
+            <button type="button" className="btn-secondary" onClick={() => setCatalogFilter('all')}>
+              Browse Properties
+            </button>
+          </div>
+        )}
         {visibleProperties.map((prop) => {
           return (
             <PropertyItem 
