@@ -52,3 +52,5 @@ createRoot(document.getElementById('root')).render(
 // Setup navigation tabs switching between walkthroughs and playgrounds
 
 // Configure CSS color variables inside index.css configuration blocks
+
+// Add mobile collapses and drawer patterns for header nav layout
