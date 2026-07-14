@@ -44,3 +44,5 @@ createRoot(document.getElementById('root')).render(
 // Setup compound interest timeline charts representing growth estimates
 
 // Build stakers list simulation tracking deposits, debts, and earnings
+
+// Build Soroban smart contract playground simulation variables mapping
