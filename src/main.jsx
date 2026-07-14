@@ -48,3 +48,5 @@ createRoot(document.getElementById('root')).render(
 // Build Soroban smart contract playground simulation variables mapping
 
 // Design terminal emulator dashboard showing pseudo transaction SDK logs
+
+// Setup navigation tabs switching between walkthroughs and playgrounds
