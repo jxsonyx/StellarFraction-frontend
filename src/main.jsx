@@ -86,3 +86,5 @@ createRoot(document.getElementById('root')).render(
 // Document wallet authentication flows using sequence diagram details
 
 // Add steps detailing local development setup in developer README
+
+// Document calculator compound formula mathematically in docs sections
