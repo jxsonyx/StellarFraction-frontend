@@ -32,3 +32,5 @@ createRoot(document.getElementById('root')).render(
 // Display disconnected overlay panel if Horizon network cannot be reached
 
 // Configure spinner loader indicators during transaction compilation state
+
+// Render ROI calculator sliders dynamically adapting dividend APY yield
