@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
+const isBrowser = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+
 const readStoredValue = (storageKey, initialValue) => {
+  if (!isBrowser) return initialValue;
+
   const storedValue = window.localStorage.getItem(storageKey);
 
   if (storedValue === null) return initialValue;
@@ -17,6 +21,7 @@ export function usePersistentState(storageKey, initialValue) {
   const [value, setValue] = useState(() => readStoredValue(storageKey, initialValue));
 
   useEffect(() => {
+    if (!isBrowser) return;
     window.localStorage.setItem(storageKey, JSON.stringify(value));
   }, [storageKey, value]);
 
