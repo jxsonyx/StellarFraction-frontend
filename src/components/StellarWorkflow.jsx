@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Cpu, Terminal, Key, PlusCircle, CheckCircle, Play, RefreshCw, FileText } from 'lucide-react';
-import { Keypair, Asset } from '@stellar/stellar-sdk';
+import { Terminal, Play, RefreshCw } from 'lucide-react';
+import { Keypair } from '@stellar/stellar-sdk';
 
 export default function StellarWorkflow() {
   const [logs, setLogs] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [step, setStep] = useState(0); // 0: Idle, 1: Keypairs, 2: Funding, 3: Trustline, 4: Minting, 5: Locked/Done
   const [keys, setKeys] = useState({ issuerPub: '', issuerSec: '', distPub: '', distSec: '' });
   const [activeTab, setActiveTab] = useState('js');
 
@@ -16,14 +15,12 @@ export default function StellarWorkflow() {
 
   const clearLogs = () => {
     setLogs([]);
-    setStep(0);
     setKeys({ issuerPub: '', issuerSec: '', distPub: '', distSec: '' });
   };
 
   const runWorkflow = async () => {
     setIsRunning(true);
     clearLogs();
-    setStep(1);
 
     addLog('🚀 Initializing Stellar Asset Creation Workflow...', 'info');
     await sleep(800);
@@ -42,7 +39,7 @@ export default function StellarWorkflow() {
       setKeys(generatedKeys);
       addLog(`✅ Issuer Account generated: ${generatedKeys.issuerPub.substring(0, 12)}...${generatedKeys.issuerPub.substring(44)}`, 'success');
       addLog(`✅ Distribution Account generated: ${generatedKeys.distPub.substring(0, 12)}...${generatedKeys.distPub.substring(44)}`, 'success');
-    } catch (err) {
+    } catch {
       addLog('❌ Failed generating keypairs, falling back to secure simulated mock keys.', 'error');
       const generatedKeys = {
         issuerPub: 'GBISUERPROPERTYXYZ1234567890ISSUEKEYPART1TOWER',
@@ -52,9 +49,8 @@ export default function StellarWorkflow() {
       };
       setKeys(generatedKeys);
     }
-    
+
     await sleep(1500);
-    setStep(2);
 
     // Step 2: Friendbot Funding
     addLog('🌐 Funding accounts on Stellar Testnet via Friendbot...', 'info');
@@ -69,7 +65,6 @@ export default function StellarWorkflow() {
     addLog('✅ Distributor account successfully funded (Balance: 10,000 XLM).', 'success');
 
     await sleep(1200);
-    setStep(3);
 
     // Step 3: Trustline Creation
     addLog('🏗️ Constructing Change Trust transaction...', 'info');
@@ -81,7 +76,6 @@ export default function StellarWorkflow() {
     addLog('✅ Trustline established! Distributor wallet is now authorized to hold asset HORZ.', 'success');
 
     await sleep(1200);
-    setStep(4);
 
     // Step 4: Minting / Payment
     addLog('💸 Constructing Minting (Payment) transaction...', 'info');
@@ -93,7 +87,6 @@ export default function StellarWorkflow() {
     addLog('✅ Asset Minted! 10,000,000 HORZ transferred to Distribution wallet.', 'success');
 
     await sleep(1200);
-    setStep(5);
 
     // Step 5: Lock issuer
     addLog('🔒 Locking Issuer account by setting master key weight to 0 (ensures capped supply)...', 'info');
@@ -196,7 +189,7 @@ stellar xdr build payment \\
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <Cpu size={18} color="var(--primary-purple)" />
+          <Terminal size={18} color="var(--primary-purple)" />
         </div>
         <h2 style={{ fontSize: '1.5rem', margin: 0 }}>Stellar SDK Asset & Trustline Workflow</h2>
       </div>

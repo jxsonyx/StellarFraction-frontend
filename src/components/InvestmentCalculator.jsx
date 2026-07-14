@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, DollarSign, TrendingUp, HelpCircle, ArrowRight } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 import { findPropertyById } from '../utils/properties';
 
 export default function InvestmentCalculator({ properties }) {

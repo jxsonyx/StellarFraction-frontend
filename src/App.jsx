@@ -10,7 +10,7 @@ import { INITIAL_PROPERTIES } from './data/properties';
 import { DEFAULT_WATCHLIST, WATCHLIST_STORAGE_KEY } from './constants/watchlist';
 import { usePersistentState } from './hooks/usePersistentState';
 import { pruneUnavailableWatchlistIds, toggleWatchlistId } from './utils/properties';
-import { Cpu, Terminal, BookOpen, Users, GitFork, ArrowUpRight } from 'lucide-react';
+import { Cpu, Terminal, BookOpen, GitFork, ArrowUpRight } from 'lucide-react';
 
 export default function App() {
   const [wallet, setWallet] = useState({

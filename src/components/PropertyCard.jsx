@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Building, ArrowRight, DollarSign, Percent, TrendingUp, Heart, Trash2 } from 'lucide-react';
+import { MapPin, Building, ArrowRight, Percent, Heart, Trash2 } from 'lucide-react';
 
 export default function PropertyCard({
   properties,
@@ -14,7 +14,6 @@ export default function PropertyCard({
   const visibleProperties = catalogFilter === 'saved'
     ? properties.filter(property => watchlistIds.includes(property.id))
     : properties;
-
   return (
     <div style={{ marginBottom: '48px' }}>
       <div className="property-catalog-heading">
