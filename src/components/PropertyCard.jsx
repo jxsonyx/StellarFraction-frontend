@@ -10,6 +10,11 @@ export default function PropertyCard({
   onInvest,
   onWithdrawShares,
 }) {
+  const [catalogFilter, setCatalogFilter] = useState('all');
+  const visibleProperties = catalogFilter === 'saved'
+    ? properties.filter(property => watchlistIds.includes(property.id))
+    : properties;
+
   void onClearWatchlist;
   return (
     <div style={{ marginBottom: '48px' }}>
@@ -26,12 +31,31 @@ export default function PropertyCard({
         Browse premium commercial properties tokenized as Stellar Assets. Invest starting at just $1.
       </p>
 
+      <div className="catalog-filter" aria-label="Property catalog filter">
+        <button
+          type="button"
+          className="btn-secondary"
+          aria-pressed={catalogFilter === 'all'}
+          onClick={() => setCatalogFilter('all')}
+        >
+          All Properties
+        </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          aria-pressed={catalogFilter === 'saved'}
+          onClick={() => setCatalogFilter('saved')}
+        >
+          Saved
+        </button>
+      </div>
+
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
         gap: '28px'
       }}>
-        {properties.map((prop) => {
+        {visibleProperties.map((prop) => {
           return (
             <PropertyItem 
               key={prop.id} 

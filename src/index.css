@@ -164,6 +164,23 @@ button {
   margin-bottom: 8px;
 }
 
+.catalog-filter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.catalog-filter .btn-secondary {
+  padding: 8px 14px;
+  font-size: 0.82rem;
+}
+
+.catalog-filter .btn-secondary[aria-pressed="true"] {
+  color: var(--primary-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  border-color: var(--border-glow);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
