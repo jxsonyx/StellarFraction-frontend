@@ -62,3 +62,5 @@ createRoot(document.getElementById('root')).render(
 // Format ROI sliders vertically to avoid input compression on screens
 
 // Setup unit tests verifying compound interest projection arithmetic
+
+// Setup integration tests validating stakers array updates on deposits
