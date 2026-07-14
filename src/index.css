@@ -219,6 +219,32 @@ button {
   margin-top: 6px;
 }
 
+.property-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+@media (max-width: 600px) {
+  .property-catalog-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .catalog-filter {
+    flex-wrap: wrap;
+  }
+
+  .watchlist-clear-button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .property-catalog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -55,11 +55,7 @@ export default function PropertyCard({
         )}
       </div>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-        gap: '28px'
-      }}>
+      <div className="property-catalog-grid">
         {visibleProperties.length === 0 && (
           <div className="watchlist-empty-state">
             <Heart size={28} color="var(--primary-cyan)" aria-hidden="true" />
