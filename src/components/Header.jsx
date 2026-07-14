@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Globe, Wallet, Github, ShieldAlert, Cpu } from 'lucide-react';
+import { formatCurrency } from '../utils/format';
 
 export default function Header({ wallet, setWallet, onResetSimulation }) {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -91,7 +92,7 @@ export default function Header({ wallet, setWallet, onResetSimulation }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', fontSize: '0.8rem' }}>
                 <span style={{ color: '#fff', fontWeight: 600 }}>{wallet.address}</span>
-                <span style={{ color: 'var(--accent-green)' }}>{wallet.balanceUSDC.toLocaleString()} USDC</span>
+                <span style={{ color: 'var(--accent-green)' }}>{formatCurrency(wallet.balanceUSDC)} USDC</span>
               </div>
               <button 
                 onClick={disconnectWallet}
